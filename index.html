@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Onderzoek de Schriften</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f4f7fb;color:#182b43}
+header{background:#102b4e;color:white;padding:24px 18px;text-align:center}
+header h1{margin:0;font-size:28px}
+header p{color:#d5e2f0;line-height:1.6}
+nav{background:#0b203a;padding:13px;text-align:center}
+nav a{color:white;margin:0 10px;text-decoration:none;font-size:14px}
+.hero{padding:38px 18px;text-align:center;background:linear-gradient(135deg,#173d68,#286a8b);color:white}
+.hero h2{font-size:27px}
+.hero p{line-height:1.6}
+input{width:100%;max-width:650px;padding:17px;border:0;border-radius:12px;font-size:17px}
+main{max-width:1100px;margin:auto;padding:22px 15px}
+h2{color:#173d68}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.card{background:white;border-radius:15px;padding:22px;box-shadow:0 3px 15px #00000012;cursor:pointer}
+.card:hover{background:#edf5fc}
+.card h3{margin-top:0;color:#153d68}
+.card p{color:#536579}
+.study{background:white;padding:22px;border-radius:15px;margin-top:22px}
+.question{padding:15px;border-bottom:1px solid #e4eaf0}
+.question strong{display:block;margin-bottom:10px}
+.refs{display:flex;flex-wrap:wrap;gap:8px}
+.refs a{background:#e7f1fa;color:#124d7b;padding:9px 12px;border-radius:9px;text-decoration:none;font-size:14px}
+button{background:#174c79;color:white;border:0;border-radius:9px;padding:12px 16px;cursor:pointer}
+details{margin-top:12px;color:#526477;line-height:1.6}
+.connection{background:#eaf3fc;padding:18px;border-radius:12px;margin:13px 0}
+footer{text-align:center;padding:30px;background:#102b4e;color:white;margin-top:35px}
+.hidden{display:none}
+</style>
+</head>
+<body>
+
+<header>
+<h1>📖 Onderzoek de Schriften</h1>
+<p>Niet wat mensen zeggen dat er staat,<br>maar onderzoeken wat er geschreven staat.</p>
+</header>
+
+<nav>
+<a href="#onderwerpen">Onderwerpen</a>
+<a href="#verbanden">Verbanden</a>
+<a href="#onderzoek">Onderzoek</a>
+</nav>
+
+<section class="hero">
+<h2>Wat zegt de Schrift?</h2>
+<p>Zoek op onderwerp, onderzoeksvraag of Bijbelverwijzing.</p>
+<input id="search" placeholder="Bijvoorbeeld: doop, oudsten, verbond..." oninput="searchStudies()">
+</section>
+
+<main>
+
+<section id="onderwerpen">
+<h2>📚 Onderwerpen</h2>
+<div class="grid" id="cards"></div>
+</section>
+
+<section id="onderzoek">
+<h2>📖 Bijbelonderzoek</h2>
+<p>Kies een onderwerp. De Bijbelverwijzingen staan centraal.</p>
+<div id="studies"></div>
+</section>
+
+<section id="verbanden">
+<h2>🔗 Schrift met Schrift vergelijken</h2>
+<p>Ontdek verbanden tussen Bijbelgedeelten.</p>
+<div id="connections"></div>
+</section>
+
+</main>
+
+<footer>
+Onderzoek de Schriften<br>
+<small>Onderzoek alle dingen en behoud het goede — 1 Thessalonicenzen 5:21</small>
+</footer>
+
+<script>
+const data=[
+{
+title:"De doop",icon:"💧",
+description:"Geloof, bekering, kinderdoop en geloofsdoop.",
+questions:[
+["Wat gaat vooraf aan de doop?",["Handelingen 2:38","Handelingen 8:12","Handelingen 8:36-38"]],
+["Wat betekent de doop?",["Romeinen 6:3-4","Kolossenzen 2:12","1 Petrus 3:21"]],
+["Wat staat er over huisgezinnen?",["Handelingen 16:14-15","Handelingen 16:30-34","1 Korinthe 1:16"]],
+["Wat zegt Jezus over discipelen maken?",["Mattheüs 28:19-20","Markus 16:16"]]
+]},
+{
+title:"Oude en nieuwe verbond",icon:"📜",
+description:"Abraham, Mozes, Jeremia en Hebreeën.",
+questions:[
+["Wat beloofde God aan Abraham?",["Genesis 12:1-3","Genesis 17:1-14","Galaten 3:16"]],
+["Waar werd het verbond bij de Sinaï gesloten?",["Exodus 19:3-8","Exodus 24:3-8"]],
+["Wat belooft God over het nieuwe verbond?",["Jeremia 31:31-34","Ezechiël 36:25-27"]],
+["Wat zegt Hebreeën over het eerste verbond?",["Hebreeën 8:6-13","Hebreeën 10:9"]],
+["Wie zijn Abrahams nageslacht?",["Galaten 3:7-9","Galaten 3:26-29"]]
+]},
+{
+title:"Oudsten en opzieners",icon:"⛪",
+description:"Aanstelling, vereisten en taken.",
+questions:[
+["Zijn oudsten en opzieners dezelfde personen?",["Titus 1:5-7","Handelingen 20:17","Handelingen 20:28"]],
+["Hoe werden oudsten aangesteld?",["Handelingen 14:23","Titus 1:5"]],
+["Aan welke eisen moeten opzieners voldoen?",["1 Timotheüs 3:1-7","Titus 1:6-9"]],
+["Hoe moeten oudsten leidinggeven?",["1 Petrus 5:1-4","Handelingen 20:28-31"]],
+["Wat staat er over onderwijs?",["1 Timotheüs 5:17","Titus 1:9"]]
+]},
+{
+title:"De gemeente",icon:"🏛️",
+description:"Samenkomsten, onderwijs en tradities.",
+questions:[
+["Hoe kwamen gelovigen samen?",["Handelingen 2:42-47","1 Korinthe 14:26"]],
+["Wat schrijft Paulus over orde?",["1 Korinthe 14:26-40"]],
+["Wat zegt Jezus over menselijke overleveringen?",["Markus 7:6-13"]],
+["Wat schrijft Paulus over het avondmaal?",["1 Korinthe 11:17-34"]]
+]},
+{
+title:"Wet en genade",icon:"⚖️",
+description:"De wet van Mozes en het onderwijs van Paulus.",
+questions:[
+["Zijn gelovigen onder de wet?",["Romeinen 6:14","Galaten 3:23-25"]],
+["Wat zegt Jezus over de wet?",["Mattheüs 5:17-20"]],
+["Wat schrijft Paulus over rechtvaardiging?",["Romeinen 3:21-31","Galaten 2:16"]],
+["Wat is de vervulling van de wet?",["Romeinen 13:8-10","Galaten 5:14"]]
+]},
+{
+title:"Redding en bekering",icon:"❤️",
+description:"Geloof, bekering, genade en volharding.",
+questions:[
+["Wie wordt gered?",["Romeinen 10:9-13","Handelingen 16:30-31"]],
+["Wat zegt de Schrift over Gods wil?",["1 Timotheüs 2:3-6","2 Petrus 3:9"]],
+["Wat staat er over volharding?",["Hebreeën 3:12-14","Mattheüs 24:13"]],
+["Wat zegt Jezus over de wijnstok?",["Johannes 15:1-10"]]
+]},
+{
+title:"Jezus Christus",icon:"✝️",
+description:"Zijn woorden, kruisdood en opstanding.",
+questions:[
+["Wat zegt de Schrift over het Woord?",["Johannes 1:1-18"]],
+["Wat zegt Jezus over de Vader?",["Johannes 14:6-11","Johannes 17:1-5"]],
+["Wat staat er over Zijn kruisdood?",["Jesaja 53","Lukas 23:33-49"]],
+["Wie getuigen van Zijn opstanding?",["1 Korinthe 15:3-8","Lukas 24:1-49"]]
+]},
+{
+title:"Bijbel en islam",icon:"📚",
+description:"Vergelijk Bijbelse getuigenissen en historische vragen.",
+questions:[
+["Wat zeggen de Evangeliën over de kruisiging?",["Markus 15:21-39","Johannes 19:16-37"]],
+["Wat schrijft Paulus over de opstanding?",["1 Korinthe 15:3-19"]],
+["Wat zegt Jezus over de Schriften?",["Lukas 24:25-27","Johannes 5:39"]]
+]}
+];
+
+const links=[
+["Menselijke tradities en geboden",["Markus 7:9","1 Korinthe 14:37"],"Thematisch verband: onderzoek de context van beide passages."],
+["Het nieuwe verbond",["Jeremia 31:31-34","Hebreeën 8:8-13"],"Hebreeën haalt Jeremia aan."],
+["Oudsten en opzieners",["Titus 1:5-7","Handelingen 20:17-28"],"Vergelijk de benamingen en taken."],
+["Geloof en doop",["Handelingen 2:38","Handelingen 8:36-38"],"Vergelijk de volgorde in beide gebeurtenissen."],
+["Wet en genade",["Romeinen 6:14","Galaten 3:23-25"],"Vergelijk het onderwijs van Paulus."],
+["Gods wil en menselijke reactie",["1 Timotheüs 2:4","Mattheüs 23:37"],"Een mogelijk thematisch verband; lees beide contexten."]
+];
+
+function bibleLink(ref){
+return "https://www.statenvertaling.net/zoek.php?q="+encodeURIComponent(ref);
+}
+function refs(arr){
+return '<div class="refs">'+arr.map(r=>'<a target="_blank" rel="noopener noreferrer" href="'+bibleLink(r)+'">'+r+' ↗</a>').join("")+'</div>';
+}
+function render(filter=""){
+let f=filter.toLowerCase().trim();
+let matching=data.filter(d=>(d.title+" "+d.description+" "+d.questions.flat(2).join(" ")).toLowerCase().includes(f));
+document.getElementById("cards").innerHTML=matching.map((d)=>'<div class="card" onclick="document.getElementById(\'study'+data.indexOf(d)+'\').scrollIntoView({behavior:\'smooth\'})"><h3>'+d.icon+" "+d.title+'</h3><p>'+d.description+'</p><small>Bekijk Bijbelverwijzingen →</small></div>').join("");
+document.getElementById("studies").innerHTML=matching.map(d=>{
+let qs=d.questions.filter(q=>!f||(d.title+" "+d.description+" "+q.join(" ")).toLowerCase().includes(f));
+return '<div class="study" id="study'+data.indexOf(d)+'"><h2>'+d.icon+" "+d.title+'</h2>'+qs.map(q=>'<div class="question"><strong>'+q[0]+'</strong>'+refs(q[1])+'</div>').join("")+'</div>';
+}).join("") || "<p>Geen onderwerpen gevonden.</p>";
+document.getElementById("connections").innerHTML=links.filter(l=>!f||l.flat(2).join(" ").toLowerCase().includes(f)).map(l=>'<div class="connection"><strong>'+l[0]+'</strong><br><br>'+refs(l[1])+'<details><summary>Waarom deze verbinding?</summary>'+l[2]+'</details></div>').join("");
+}
+function searchStudies(){render(document.getElementById("search").value)}
+render();
+</script>
+</body>
+</html>
