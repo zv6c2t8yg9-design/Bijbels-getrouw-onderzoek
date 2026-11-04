@@ -1,189 +1,80 @@
-<!DOCTYPE html>
-<html lang="nl">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Onderzoek de Schriften</title>
-<style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#f4f7fb;color:#182b43}
-header{background:#102b4e;color:white;padding:24px 18px;text-align:center}
-header h1{margin:0;font-size:28px}
-header p{color:#d5e2f0;line-height:1.6}
-nav{background:#0b203a;padding:13px;text-align:center}
-nav a{color:white;margin:0 10px;text-decoration:none;font-size:14px}
-.hero{padding:38px 18px;text-align:center;background:linear-gradient(135deg,#173d68,#286a8b);color:white}
-.hero h2{font-size:27px}
-.hero p{line-height:1.6}
-input{width:100%;max-width:650px;padding:17px;border:0;border-radius:12px;font-size:17px}
-main{max-width:1100px;margin:auto;padding:22px 15px}
-h2{color:#173d68}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
-.card{background:white;border-radius:15px;padding:22px;box-shadow:0 3px 15px #00000012;cursor:pointer}
-.card:hover{background:#edf5fc}
-.card h3{margin-top:0;color:#153d68}
-.card p{color:#536579}
-.study{background:white;padding:22px;border-radius:15px;margin-top:22px}
-.question{padding:15px;border-bottom:1px solid #e4eaf0}
-.question strong{display:block;margin-bottom:10px}
-.refs{display:flex;flex-wrap:wrap;gap:8px}
-.refs a{background:#e7f1fa;color:#124d7b;padding:9px 12px;border-radius:9px;text-decoration:none;font-size:14px}
-button{background:#174c79;color:white;border:0;border-radius:9px;padding:12px 16px;cursor:pointer}
-details{margin-top:12px;color:#526477;line-height:1.6}
-.connection{background:#eaf3fc;padding:18px;border-radius:12px;margin:13px 0}
-footer{text-align:center;padding:30px;background:#102b4e;color:white;margin-top:35px}
-.hidden{display:none}
-</style>
-</head>
-<body>
-
-<header>
-<h1>📖 Onderzoek de Schriften</h1>
-<p>Niet de menselijke interpretatie,<br>maar onderzoeken wat er geschreven staat.</p>
-</header>
-
-<nav>
-<a href="#onderwerpen">Onderwerpen</a>
-<a href="#verbanden">Verbanden</a>
-<a href="#onderzoek">Onderzoek</a>
-</nav>
-
-<section class="hero">
-<h2>Wat zegt de Schrift?</h2>
-<p>Zoek op onderwerp, onderzoeksvraag of Bijbelverwijzing.</p>
-<input id="search" placeholder="Bijvoorbeeld: doop, oudsten, verbond..." oninput="searchStudies()">
-</section>
-
-<main>
-
-<section id="onderwerpen">
-<h2>📚 Onderwerpen</h2>
-<div class="grid" id="cards"></div>
-</section>
-
-<section id="onderzoek">
-<h2>📖 Bijbelonderzoek</h2>
-<p>Kies een onderwerp. De Bijbelverwijzingen staan centraal.</p>
-<div id="studies"></div>
-</section>
-
-<section id="verbanden">
-<h2>🔗 Schrift met Schrift vergelijken</h2>
-<p>Ontdek verbanden tussen Bijbelgedeelten.</p>
-<div id="connections"></div>
-</section>
-
-</main>
-
-<footer>
-Onderzoek de Schriften<br>
-<small>Onderzoek alle dingen en behoud het goede — 1 Thessalonicenzen 5:21</small>
-</footer>
-
-<script>
-const data=[
-{
-title:"De doop",icon:"💧",
-description:"Geloof, bekering, kinderdoop en geloofsdoop.",
-questions:[
-["Wat gaat vooraf aan de doop?",["Handelingen 2:38","Handelingen 8:12","Handelingen 8:36-38"]],
-["Wat betekent de doop?",["Romeinen 6:3-4","Kolossenzen 2:12","1 Petrus 3:21"]],
-["Wat staat er over huisgezinnen?",["Handelingen 16:14-15","Handelingen 16:30-34","1 Korinthe 1:16"]],
-["Wat zegt Jezus over discipelen maken?",["Mattheüs 28:19-20","Markus 16:16"]]
-]},
-{
-title:"Oude en nieuwe verbond",icon:"📜",
-description:"Abraham, Mozes, Jeremia en Hebreeën.",
-questions:[
-["Wat beloofde God aan Abraham?",["Genesis 12:1-3","Genesis 17:1-14","Galaten 3:16"]],
-["Waar werd het verbond bij de Sinaï gesloten?",["Exodus 19:3-8","Exodus 24:3-8"]],
-["Wat belooft God over het nieuwe verbond?",["Jeremia 31:31-34","Ezechiël 36:25-27"]],
-["Wat zegt Hebreeën over het eerste verbond?",["Hebreeën 8:6-13","Hebreeën 10:9"]],
-["Wie zijn Abrahams nageslacht?",["Galaten 3:7-9","Galaten 3:26-29"]]
-]},
-{
-title:"Oudsten en opzieners",icon:"⛪",
-description:"Aanstelling, vereisten en taken.",
-questions:[
-["Zijn oudsten en opzieners dezelfde personen?",["Titus 1:5-7","Handelingen 20:17","Handelingen 20:28"]],
-["Hoe werden oudsten aangesteld?",["Handelingen 14:23","Titus 1:5"]],
-["Aan welke eisen moeten opzieners voldoen?",["1 Timotheüs 3:1-7","Titus 1:6-9"]],
-["Hoe moeten oudsten leidinggeven?",["1 Petrus 5:1-4","Handelingen 20:28-31"]],
-["Wat staat er over onderwijs?",["1 Timotheüs 5:17","Titus 1:9"]]
-]},
-{
-title:"De gemeente",icon:"🏛️",
-description:"Samenkomsten, onderwijs en tradities.",
-questions:[
-["Hoe kwamen gelovigen samen?",["Handelingen 2:42-47","1 Korinthe 14:26"]],
-["Wat schrijft Paulus over orde?",["1 Korinthe 14:26-40"]],
-["Wat zegt Jezus over menselijke overleveringen?",["Markus 7:6-13"]],
-["Wat schrijft Paulus over het avondmaal?",["1 Korinthe 11:17-34"]]
-]},
-{
-title:"Wet en genade",icon:"⚖️",
-description:"De wet van Mozes en het onderwijs van Paulus.",
-questions:[
-["Zijn gelovigen onder de wet?",["Romeinen 6:14","Galaten 3:23-25"]],
-["Wat zegt Jezus over de wet?",["Mattheüs 5:17-20"]],
-["Wat schrijft Paulus over rechtvaardiging?",["Romeinen 3:21-31","Galaten 2:16"]],
-["Wat is de vervulling van de wet?",["Romeinen 13:8-10","Galaten 5:14"]]
-]},
-{
-title:"Redding en bekering",icon:"❤️",
-description:"Geloof, bekering, genade en volharding.",
-questions:[
-["Wie wordt gered?",["Romeinen 10:9-13","Handelingen 16:30-31"]],
-["Wat zegt de Schrift over Gods wil?",["1 Timotheüs 2:3-6","2 Petrus 3:9"]],
-["Wat staat er over volharding?",["Hebreeën 3:12-14","Mattheüs 24:13"]],
-["Wat zegt Jezus over de wijnstok?",["Johannes 15:1-10"]]
-]},
-{
-title:"Jezus Christus",icon:"✝️",
-description:"Zijn woorden, kruisdood en opstanding.",
-questions:[
-["Wat zegt de Schrift over het Woord?",["Johannes 1:1-18"]],
-["Wat zegt Jezus over de Vader?",["Johannes 14:6-11","Johannes 17:1-5"]],
-["Wat staat er over Zijn kruisdood?",["Jesaja 53","Lukas 23:33-49"]],
-["Wie getuigen van Zijn opstanding?",["1 Korinthe 15:3-8","Lukas 24:1-49"]]
-]},
-{
-title:"Bijbel en islam",icon:"📚",
-description:"Vergelijk Bijbelse getuigenissen en historische vragen.",
-questions:[
-["Wat zeggen de Evangeliën over de kruisiging?",["Markus 15:21-39","Johannes 19:16-37"]],
-["Wat schrijft Paulus over de opstanding?",["1 Korinthe 15:3-19"]],
-["Wat zegt Jezus over de Schriften?",["Lukas 24:25-27","Johannes 5:39"]]
-]}
-];
-
+<!doctype html><html lang="nl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Onderzoek de Schriften</title><style>*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f4f7fb;color:#182b43}header{background:#102b4e;color:white;padding:24px 18px;text-align:center}header h1{margin:0;font-size:28px}header p{color:#d5e2f0;line-height:1.6}nav{background:#0b203a;padding:13px;text-align:center}nav a{color:white;margin:0 10px;text-decoration:none;font-size:14px}.hero{padding:38px 18px;text-align:center;background:linear-gradient(135deg,#173d68,#286a8b);color:white}.hero h2{color:white;font-size:27px}.hero p{line-height:1.6}input[type=search]{width:100%;max-width:650px;padding:17px;border:0;border-radius:12px;font-size:17px}main{max-width:1100px;margin:auto;padding:22px 15px}h2{color:#173d68}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}.card{background:white;border-radius:15px;padding:22px;box-shadow:0 3px 15px #00000012;cursor:pointer}.card:hover{background:#edf5fc}.card h3{margin-top:0;color:#153d68}.card p{color:#536579}.study{background:white;padding:22px;border-radius:15px;margin-top:22px}.question{padding:15px;border-bottom:1px solid #e4eaf0}.question strong{display:block;margin-bottom:10px}.refs{display:flex;flex-wrap:wrap;gap:8px}.refbutton{background:#e7f1fa;color:#124d7b;padding:10px 12px;border-radius:9px;border:0;font-size:14px;cursor:pointer}button:focus-visible,summary:focus-visible,select:focus-visible{outline:3px solid #e9a72c;outline-offset:2px}.connection{background:#eaf3fc;padding:18px;border-radius:12px;margin:13px 0}details{margin-top:12px;color:#526477;line-height:1.6}footer{text-align:center;padding:30px;background:#102b4e;color:white;margin-top:35px}.versebox{margin-top:12px;background:#fff;border:1px solid #ccddeb;border-radius:12px;padding:15px}.compare{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.pane{min-width:0;background:#f4f8fd;border-radius:10px;padding:12px}.pane select{width:100%;padding:9px;border:1px solid #a9c0d7;border-radius:8px;background:white}.pane p{white-space:pre-wrap;line-height:1.65;overflow-wrap:anywhere}.note{font-size:13px;color:#526477}.refbutton[aria-expanded=true]{background:#174c79;color:white}@media(max-width:620px){.compare{grid-template-columns:1fr}.study{padding:15px}}  .wordhelp{background:#f0f6ff;border-left:4px solid #286a8b;padding:12px 15px;margin-top:12px;border-radius:8px;line-height:1.6}.original-word{border:0;background:transparent;color:inherit;font:inherit;padding:1px 2px;border-radius:3px;cursor:pointer}.original-word:hover,.original-word:focus{background:#dcecfb;outline:2px solid #286a8b}.versebox{max-width:100%;overflow-wrap:anywhere}.pane{min-width:0}.compare{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}@media(max-width:720px){.compare{grid-template-columns:1fr}.study{padding:15px}.question{padding:12px 0}} 
+/* Hemellicht — rustige kosmische vormgeving, zonder externe afbeeldingen */
+:root{--ink:#172b46;--navy:#091a33;--gold:#e8c47a;--line:#dfe7f1}
+html{scroll-behavior:smooth}
+body{background:linear-gradient(180deg,#eaf1fa 0,#f7f9fd 460px,#f5f7fb 100%);color:var(--ink)}
+header{position:relative;isolation:isolate;overflow:hidden;padding:35px 18px 30px;background:radial-gradient(ellipse at 50% -30%,#456a96 0%,#173758 42%,#09182e 100%)}
+header::before,.hero::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:-1;background-image:radial-gradient(1.4px 1.4px at 12% 24%,#fff 98%,transparent),radial-gradient(1px 1px at 29% 76%,#fff 98%,transparent),radial-gradient(2px 2px at 71% 21%,#fff 98%,transparent),radial-gradient(1px 1px at 88% 69%,#fff 98%,transparent),radial-gradient(1px 1px at 53% 54%,#fff 98%,transparent),radial-gradient(1px 1px at 40% 13%,#fff 98%,transparent);background-size:310px 190px;opacity:.45}
+header h1{font-family:Georgia,serif;font-size:clamp(29px,4.5vw,43px);letter-spacing:.01em;text-shadow:0 2px 18px #0005}
+header p{margin-bottom:0;color:#e5eaf5;font-size:15px}
+nav{position:sticky;top:0;z-index:20;background:#0b1e37ed;backdrop-filter:blur(12px);border-bottom:1px solid #ffffff26;box-shadow:0 5px 20px #06162b24}
+nav a{display:inline-block;padding:5px 7px;color:#f5f4f0;font-weight:600}
+nav a:hover{color:var(--gold)}
+.hero{position:relative;isolation:isolate;overflow:hidden;min-height:275px;padding:48px 20px 54px;background:radial-gradient(circle at 50% 115%,#f2d8a2 0%,#b18d6b 9%,#52749b 25%,#17395d 52%,#091a35 100%)}
+.hero::after{content:"";position:absolute;z-index:-1;left:50%;bottom:-290px;transform:translateX(-50%);width:600px;height:600px;border-radius:50%;background:repeating-conic-gradient(from 4deg,#f5dba62a 0deg 2deg,transparent 3deg 14deg);mask-image:radial-gradient(circle,transparent 0 28%,black 43%,transparent 72%);pointer-events:none}
+.hero h2{font-family:Georgia,serif;font-size:clamp(30px,5vw,44px);margin:0 0 12px;text-shadow:0 2px 15px #0006}
+.hero p{max-width:750px;margin:0 auto 24px;color:#f0f4fb;font-size:16px}
+input[type=search]{box-shadow:0 12px 30px #061b3970;border:2px solid #ffffff75;background:#fffffffa;outline-offset:3px}
+main{max-width:1180px;padding:35px 18px}
+main section{scroll-margin-top:90px}
+main section>h2{font-family:Georgia,serif;font-size:clamp(24px,3vw,31px);margin-top:24px}
+.grid{gap:18px}
+.card{border:1px solid #e0e9f4;border-radius:18px;box-shadow:0 8px 25px #1b3b6410;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;position:relative;overflow:hidden}
+.card::before{content:"";position:absolute;inset:0 auto 0 0;width:4px;background:linear-gradient(#e8c47a,#6289ad)}
+.card:hover{transform:translateY(-3px);box-shadow:0 14px 30px #1b3b6422;border-color:#b9cfe6;background:white}
+.card h3{font-family:Georgia,serif;font-size:20px}
+.study{border:1px solid #e0e8f1;border-radius:18px;box-shadow:0 7px 25px #1734550d}
+.study h2{font-family:Georgia,serif}
+.refbutton{background:#edf4fb;color:#174c77;border:1px solid #d8e6f4;transition:background .15s ease}
+.refbutton:hover{background:#dceaf7}
+.refbutton[aria-expanded=true]{background:#193e65;color:#fff}
+.connection{background:linear-gradient(120deg,#f0f6fc,#e5f0fa);border:1px solid #dce7f2;border-left:4px solid #d2ae6d}
+.versebox{box-shadow:0 6px 22px #12345412}
+.pane{background:#f5f8fc;border:1px solid #e2eaf4}
+footer{background:linear-gradient(120deg,#09192e,#173b5c);line-height:1.8}
+@media(max-width:620px){header{padding:27px 15px 25px}.hero{padding:36px 17px 42px;min-height:0}.hero::after{bottom:-340px}nav{padding:9px 4px}nav a{margin:0 2px;font-size:13px}main{padding:22px 13px}.card{padding:19px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.card{transition:none}}
+</style></head><body><header><h1>📖 Onderzoek de Schriften</h1><p>Niet de menselijke interpretatie,<br>maar het Woord spreekt.</p></header><nav><a href="#onderwerpen">Onderwerpen</a><a href="#verbanden">Verbanden</a><a href="#onderzoek">Onderzoek</a></nav><section class="hero"><h2>Wat zegt de Schrift?</h2><p>Onderzoek de Schrift per thema, vergelijk verwijzingen en bestudeer de oorspronkelijke taal. Klik op een verwijzing om de Bijbeltekst en de Hebreeuwse of Griekse grondtekst naast elkaar op deze pagina te lezen.</p><input type="search" id="search" placeholder="Bijvoorbeeld: doop, oudsten, verbond..."></section><main><section id="onderwerpen"><h2>📚 Onderwerpen in vijf delen</h2><div class="grid" id="cards"></div></section><section id="onderzoek"><h2>📖 Bijbelonderzoek</h2><p>Kies een onderwerp. De Bijbelverwijzingen staan centraal.</p><div id="studies"></div></section><section id="verbanden"><h2>🔗 Schrift met Schrift vergelijken</h2><p>Ontdek verbanden tussen Bijbelgedeelten.</p><div id="connections"></div></section></main><footer>Onderzoek de Schriften<br><small>Onderzoek alle dingen en behoud het goede — 1 Thessalonicenzen 5:21</small></footer><script>
+const data=[["God, Jezus Christus en de Heilige Geest","🔥","De basis van het geloof",[["Wat zegt de Schrift over één God?",["Deuteronomium 6:4","Markus 12:28-34","1 Korinthe 8:4-6"]],["Wat staat er over het Woord en Jezus?",["Johannes 1:1-18","Johannes 20:28","Kolossenzen 1:15-20"]],["Waarom zegt Jezus dat de Vader groter is?",["Johannes 14:28","Filippenzen 2:5-11"]],["Wie kent de dag en het uur?",["Markus 13:32","Mattheüs 24:36"]],["Wat zegt Jezus over Zijn wil en die van de Vader?",["Johannes 5:19-30","Lukas 22:42"]],["Wat zegt de Schrift over de Heilige Geest?",["Johannes 14:16-17","Johannes 16:7-15","Handelingen 5:3-4"]],["Wat zegt de doopopdracht?",["Mattheüs 28:19-20","Handelingen 2:38"]],["Wat betekent dat de Zoon onderworpen wordt?",["1 Korinthe 15:24-28"]],["Verleidt God mensen tot kwaad?",["Jakobus 1:12-17","1 Korinthe 10:13"]],["Wie beproeft wie?",["Genesis 22:1-14","Job 1:6-12","Mattheüs 4:1-11"]],["Wat is het verschil tussen beproeving en verzoeking?",["Jakobus 1:2-15","1 Petrus 1:6-7"]],["Tuchtigt God Zijn kinderen?",["Hebreeën 12:5-11","Openbaring 3:19"]],["Heeft God verdriet over menselijke zonde?",["Genesis 6:5-6","Efeze 4:30"]],["Wat betekent dat God Zich verwondert?",["Jesaja 59:16","Markus 6:6"]],["Bestuurt God alles, en wat is de rol van de duivel?",["Efeze 1:11","1 Johannes 5:19","Jakobus 1:13"]],["Hoe verhouden Gods geduld en oordeel zich?",["Exodus 34:6-7","2 Petrus 3:9-10"]]]],["De betrouwbaarheid van de Bijbel","📚","De basis van het geloof",[["Hoe onderzochten de Bereeërs de Schriften?",["Handelingen 17:10-12"]],["Wat zegt Jezus over de Schriften?",["Johannes 5:39","Lukas 24:25-27"]],["Wat zegt Paulus over de ingegeven Schrift?",["2 Timotheüs 3:14-17"]],["Wat staat er over profetie en uitleg?",["2 Petrus 1:19-21"]],["Wat zegt de Schrift over toevoegen of afdoen?",["Deuteronomium 4:2","Spreuken 30:5-6","Openbaring 22:18-19"]],["Wat staat er over Gods blijvende woord?",["Jesaja 40:8","Mattheüs 24:35","1 Petrus 1:24-25"]],["Wat zegt de Schrift over de wet terugvinden?",["2 Koningen 22:8-13","Nehemia 8:1-9"]],["Wat schrijft Paulus over zijn onderwijs?",["1 Korinthe 14:37","Galaten 1:11-12"]],["Hoe ging Paulus om met Petrus?",["Galaten 2:11-21"]],["Hoe betrouwbaar is het apostolische getuigenis?",["2 Petrus 1:16-21","Lukas 1:1-4"]]]],["Zonde en menselijke verantwoordelijkheid","🕊️","De basis van het geloof",[["Wil God dat mensen behouden worden?",["1 Timotheüs 2:3-6","2 Petrus 3:9"]],["Kunnen mensen weigeren te komen?",["Mattheüs 23:37","Johannes 5:39-40","Handelingen 7:51"]],["Wat staat er over uitverkiezing?",["Efeze 1:3-14","Romeinen 8:28-30","Romeinen 9:10-24"]],["Wat zegt de Schrift over geloof en Gods gave?",["Efeze 2:8-10","Filippenzen 1:29"]],["Hoe verhouden Gods werk en menselijke verantwoordelijkheid zich?",["Filippenzen 2:12-13","Romeinen 10:9-13"]],["Wat zegt de Schrift over afvallen?",["Hebreeën 6:4-6","Hebreeën 10:26-29","2 Petrus 2:20-22"]],["Wat zegt de Schrift over zekerheid?",["Johannes 10:27-30","Romeinen 8:31-39","1 Johannes 5:11-13"]]]],["Het evangelie van Jezus Christus","✝️","De basis van het geloof",[["Wat is het evangelie?",["Markus 1:14-15","1 Korinthe 15:1-4"]],["Wat betekent het Koninkrijk van God?",["Lukas 17:20-21","Johannes 3:3-5"]],["Wat betekent Jezus’ oproep Hem te volgen?",["Lukas 9:23-26","Mattheüs 16:24-26"]],["Welke passages worden verbonden met Zijn lijden?",["Jesaja 52:13-15","Jesaja 53","Psalm 22"]],["Wat zeggen de evangeliën over de kruisiging?",["Markus 15:21-39","Johannes 19:16-37","Lukas 23:33-49"]],["Wat zegt Jezus over Zijn opstanding?",["Markus 8:31","Johannes 2:18-22"]],["Welke verschijningen worden beschreven?",["Lukas 24:1-49","Johannes 20:1-29","1 Korinthe 15:3-8"]],["Wat schrijft Paulus over de betekenis van de opstanding?",["1 Korinthe 15:12-28"]],["Heeft Paulus Jezus gezien?",["Handelingen 9:1-19","1 Korinthe 9:1","Galaten 1:11-17"]],["Wat gebeurde er tussen Paulus en Petrus?",["Galaten 2:11-21"]],["Wat zegt de Schrift over het Woord?",["Johannes 1:1-18"]],["Wat zegt Jezus over de Vader?",["Johannes 14:6-11","Johannes 17:1-5"]],["Wat staat er over Zijn kruisdood?",["Jesaja 53","Lukas 23:33-49"]],["Wie getuigen van Zijn opstanding?",["1 Korinthe 15:3-8","Lukas 24:1-49"]]]],["Geloof, bekering en wedergeboorte","🌱","De basis van het geloof",[["Wat betekent opnieuw geboren worden?",["Johannes 3:3-8","1 Petrus 1:23"]],["Wat is bekering?",["Handelingen 2:37-39","Handelingen 3:19","Handelingen 26:20"]],["Hoe wordt iemand behouden?",["Romeinen 10:9-13","Handelingen 16:30-31","Johannes 3:16"]],["Wat is geloof zonder werken?",["Jakobus 2:14-26","Efeze 2:8-10"]],["Wat betekent blijven in Christus?",["Johannes 15:1-10","1 Johannes 2:3-6"]],["Wat zegt Jezus over de nauwe poort?",["Mattheüs 7:13-14","Lukas 13:23-30"]],["Wat betekent het oog van de naald?",["Mattheüs 19:16-26","Markus 10:23-27"]],["Wie wordt gered?",["Romeinen 10:9-13","Handelingen 16:30-31"]],["Wat zegt de Schrift over Gods wil?",["1 Timotheüs 2:3-6","2 Petrus 3:9"]],["Wat staat er over volharding?",["Hebreeën 3:12-14","Mattheüs 24:13"]],["Wat zegt Jezus over de wijnstok?",["Johannes 15:1-10"]]]],["Redding en zekerheid","❤️","Het leven als gelovige",[["Wie wordt behouden?",["Romeinen 10:9-13","Handelingen 16:30-31"]],["Wat betekent behouden uit genade?",["Efeze 2:8-10"]],["Wat is de zekerheid van de gelovige?",["Johannes 10:27-30","1 Johannes 5:11-13"]]]],["Rechtvaardiging: hoe ziet God een gelovige?","⚖️","Het leven als gelovige",[["Hoe wordt iemand gerechtvaardigd?",["Romeinen 3:21-28","Romeinen 5:1","Galaten 2:16"]],["Is er veroordeling voor wie in Christus is?",["Romeinen 8:1-4"]],["Wat betekent toegerekende gerechtigheid?",["Romeinen 4:3-8","2 Korinthe 5:21"]]]],["Heiliging en een nieuw leven","🌿","Het leven als gelovige",[["Hoe verhouden geheiligd zijn en geheiligd worden zich?",["1 Korinthe 6:11","Hebreeën 10:10-14"]],["Hoe leef je als een nieuwe schepping?",["2 Korinthe 5:17","Efeze 4:20-32"]],["Wat betekent volmaakt in de verschillende teksten?",["Hebreeën 10:14","Filippenzen 3:12-15"]],["Hoe ziet God iemand die in Christus gelooft?",["Romeinen 5:1","Romeinen 8:1","2 Korinthe 5:17"]],["Wat betekent gerechtvaardigd worden?",["Romeinen 3:21-28","Galaten 2:16","Romeinen 4:1-8"]],["Wat betekent geheiligd zijn?",["1 Korinthe 6:11","Hebreeën 10:10","Hebreeën 10:14"]],["Waarom worden gelovigen opgeroepen heilig te leven?",["1 Thessalonicenzen 4:3-7","Hebreeën 12:14","1 Petrus 1:15-16"]],["Kan een gelovige nog zondigen?",["1 Johannes 1:8-10","1 Johannes 2:1-2"]],["Zijn gelovigen kinderen en erfgenamen van God?",["Johannes 1:12","Romeinen 8:14-17","Galaten 4:4-7"]],["Wat is een nieuwe schepping?",["2 Korinthe 5:17","Galaten 6:15"]],["Hoe verhouden volmaakt en nog niet volmaakt zich?",["Hebreeën 10:14","Filippenzen 3:12-15"]]]],["Volharding en afvalligheid","🕯️","Het leven als gelovige",[["Wat betekent blijven in Christus?",["Johannes 15:1-10"]],["Welke waarschuwingen staan in Hebreeën?",["Hebreeën 3:12-14","Hebreeën 6:4-12","Hebreeën 10:26-39"]],["Wat betekent volharden tot het einde?",["Mattheüs 24:13","Kolossenzen 1:21-23"]]]],["Beproeving, verzoeking en kastijding","🔥","Het leven als gelovige",[["Verzoekt God iemand tot kwaad?",["Jakobus 1:12-17"]],["Wie beproefde Job?",["Job 1:6-12","Job 2:1-7"]],["Wat staat er over kastijding?",["Hebreeën 12:5-11","Spreuken 3:11-12"]],["Hoe verhoudt Genesis 22 zich tot Jakobus 1?",["Genesis 22:1-18","Jakobus 1:13"]]]],["Levenswandel, gezin en relaties","🤝","Het leven als gelovige",[["Wat schrijft Paulus over huwelijk en ongehuwd blijven?",["1 Korinthe 7:1-40"]],["Wat zegt de Schrift over opvoeding en tucht?",["Spreuken 13:24","Efeze 6:1-4","Kolossenzen 3:21"]],["Wat staat er over genieten van arbeid?",["Prediker 3:12-13","Prediker 5:17-19"]],["Wat zegt Jezus over vrede en verdeeldheid?",["Mattheüs 10:34-39","Lukas 12:49-53"]],["Wat staat er over zorgen en rust?",["Mattheüs 6:25-34","Filippenzen 4:4-9"]],["Wat staat er over liefde en vergeving?",["1 Korinthe 13:1-13","Efeze 4:31-32"]]]],["Abraham en Gods beloften","📜","Gods verbonden",[["Welke verbonden worden genoemd?",["Genesis 9:8-17","Genesis 17:1-14","Exodus 24:3-8","2 Samuël 7:12-16"]],["Wat is het verband tussen Abraham en Christus?",["Galaten 3:6-29"]],["Wat is nieuw aan het nieuwe verbond?",["Jeremia 31:31-34","Hebreeën 8:6-13"]],["Wat betekent het eerste verbond is verouderd?",["Hebreeën 8:13","Hebreeën 10:9"]],["Wie horen bij de belofte?",["Handelingen 2:38-39","Galaten 3:26-29"]],["Wat betekent ingeënt worden in de olijfboom?",["Romeinen 11:16-24"]],["Wat betekent besnijdenis van het hart?",["Deuteronomium 30:6","Romeinen 2:28-29","Kolossenzen 2:11-12"]]]],["Het oude en nieuwe verbond","📜","Gods verbonden",[["Wat beloofde God aan Abraham?",["Genesis 12:1-3","Genesis 17:1-14","Galaten 3:16"]],["Waar werd het verbond bij de Sinaï gesloten?",["Exodus 19:3-8","Exodus 24:3-8"]],["Wat belooft God over het nieuwe verbond?",["Jeremia 31:31-34","Ezechiël 36:25-27"]],["Wat zegt Hebreeën over het eerste verbond?",["Hebreeën 8:6-13","Hebreeën 10:9"]],["Wie zijn Abrahams nageslacht?",["Galaten 3:7-9","Galaten 3:26-29"]]]],["De wet van Mozes en genade","⚖️","Gods verbonden",[["Wat betekent niet onder de wet maar onder genade?",["Romeinen 6:14-15","Galaten 5:18"]],["Wat zegt Jezus over de vervulling van de wet?",["Mattheüs 5:17-20","Lukas 24:44"]],["Wat zegt Handelingen over heidenen en de wet?",["Handelingen 15:1-29","Galaten 2:1-10"]],["Wat is de functie van de wet?",["Romeinen 3:19-31","Galaten 3:19-25"]],["Wat betekent de wet van Christus?",["Galaten 6:2","1 Korinthe 9:20-21"]],["Wat zegt Paulus over liefde als vervulling?",["Romeinen 13:8-10","Galaten 5:13-14"]],["Wat is zonde en hoe werkt het geweten?",["Romeinen 2:12-16","Romeinen 7:7-25"]],["Zijn gelovigen onder de wet?",["Romeinen 6:14","Galaten 3:23-25"]],["Wat zegt Jezus over de wet?",["Mattheüs 5:17-20"]],["Wat schrijft Paulus over rechtvaardiging?",["Romeinen 3:21-31","Galaten 2:16"]],["Wat is de vervulling van de wet?",["Romeinen 13:8-10","Galaten 5:14"]]]],["Israël, de heidenen en Gods beloften","🕊️","Gods verbonden",[["Wie zijn Abrahams nageslacht?",["Galaten 3:7-9","Galaten 3:26-29"]],["Wat betekent de olijfboom?",["Romeinen 11:11-24"]],["Wat werd besloten over heidenen en de wet?",["Handelingen 15:1-29"]]]],["De doop: betekenis en praktijk","💧","Gods verbonden",[["Wie werden gedoopt na de verkondiging?",["Handelingen 2:38-41","Handelingen 8:12","Handelingen 18:8"]],["Wat staat er over de kamerling?",["Handelingen 8:26-39"]],["Wat wordt over gezinnen gezegd?",["Handelingen 16:14-15","Handelingen 16:30-34","1 Korinthe 1:16"]],["Hoe verhouden doop en besnijdenis zich?",["Genesis 17:9-14","Kolossenzen 2:11-12","Romeinen 4:9-12"]],["Wat betekent met Christus begraven zijn?",["Romeinen 6:3-5","Kolossenzen 2:12"]],["Wat zegt Petrus over doop en geweten?",["1 Petrus 3:18-22"]],["Wat zegt Jezus over geloof en doop?",["Markus 16:16","Mattheüs 28:18-20"]],["Wat betekent de belofte voor u en uw kinderen?",["Handelingen 2:38-39","Joël 2:28-32"]],["Wat gaat vooraf aan de doop?",["Handelingen 2:38","Handelingen 8:12","Handelingen 8:36-38"]],["Wat betekent de doop?",["Romeinen 6:3-4","Kolossenzen 2:12","1 Petrus 3:21"]],["Wat staat er over huisgezinnen?",["Handelingen 16:14-15","Handelingen 16:30-34","1 Korinthe 1:16"]],["Wat zegt Jezus over discipelen maken?",["Mattheüs 28:19-20","Markus 16:16"]]]],["Wat is de gemeente?","🏛️","De gemeente",[["Hoe kwamen gelovigen samen?",["Handelingen 2:42-47","1 Korinthe 14:26"]],["Wat schrijft Paulus over orde?",["1 Korinthe 14:26-40"]],["Wat zegt Jezus over menselijke overleveringen?",["Markus 7:6-13"]],["Wat schrijft Paulus over het avondmaal?",["1 Korinthe 11:17-34"]]]],["Oudsten, opzieners en dienaren","⛪","De gemeente",[["Zijn oudsten en opzieners dezelfde personen?",["Titus 1:5-7","Handelingen 20:17","Handelingen 20:28"]],["Hoe werden oudsten aangesteld?",["Handelingen 14:23","Titus 1:5"]],["Aan welke eisen moeten opzieners voldoen?",["1 Timotheüs 3:1-7","Titus 1:6-9"]],["Hoe moeten oudsten leidinggeven?",["1 Petrus 5:1-4","Handelingen 20:28-31"]],["Wat staat er over onderwijs?",["1 Timotheüs 5:17","Titus 1:9"]],["Hoe worden oudsten en opzieners aangeduid?",["Handelingen 20:17-28","Titus 1:5-9"]],["Welke eisen gelden voor oudsten?",["1 Timotheüs 3:1-7","Titus 1:5-9"]],["Hoe worden oudsten aangesteld?",["Handelingen 14:23","Titus 1:5"]],["Wat zegt de Schrift over herderschap?",["1 Petrus 5:1-4","Johannes 21:15-17"]],["Wat betekent arbeiden in woord en leer?",["1 Timotheüs 5:17","Efeze 4:11-13"]],["Wat mag gebeuren wanneer de gemeente samenkomt?",["1 Korinthe 14:26-40","Handelingen 2:42-47"]],["Wat staat er over priesterschap van gelovigen?",["1 Petrus 2:4-10","Openbaring 1:5-6"]],["Wat zegt de Schrift over vrouwen en onderwijs?",["1 Timotheüs 2:11-15","1 Korinthe 14:34-35","Handelingen 18:24-26"]]]],["Samenkomsten, prediking en onderwijs","🏛️","De gemeente",[["Hoe worden oudsten en opzieners aangeduid?",["Handelingen 20:17-28","Titus 1:5-9"]],["Welke eisen gelden voor oudsten?",["1 Timotheüs 3:1-7","Titus 1:5-9"]],["Hoe worden oudsten aangesteld?",["Handelingen 14:23","Titus 1:5"]],["Wat zegt de Schrift over herderschap?",["1 Petrus 5:1-4","Johannes 21:15-17"]],["Wat betekent arbeiden in woord en leer?",["1 Timotheüs 5:17","Efeze 4:11-13"]],["Wat mag gebeuren wanneer de gemeente samenkomt?",["1 Korinthe 14:26-40","Handelingen 2:42-47"]],["Wat staat er over priesterschap van gelovigen?",["1 Petrus 2:4-10","Openbaring 1:5-6"]],["Wat zegt de Schrift over vrouwen en onderwijs?",["1 Timotheüs 2:11-15","1 Korinthe 14:34-35","Handelingen 18:24-26"]]]],["Het avondmaal","🍞","De gemeente",[["Hoe werd het avondmaal ingesteld?",["Lukas 22:14-20","1 Korinthe 11:23-26"]],["Wat ging er mis bij de samenkomst in Korinthe?",["1 Korinthe 11:17-34"]],["Wat betekent zichzelf beproeven?",["1 Korinthe 11:27-32"]],["Wat zegt de Schrift over samen eten en brood breken?",["Handelingen 2:42-47","Handelingen 20:7"]],["Wat zegt Paulus over zingen?",["Kolossenzen 3:16","Efeze 5:18-20"]],["Wat staat er over bidden en zingen?",["Jakobus 5:13","1 Korinthe 14:15"]],["Wat betekent de ene dag boven de andere achten?",["Romeinen 14:5-6","Kolossenzen 2:16-17"]],["Wat zegt de Schrift over de sabbat?",["Exodus 20:8-11","Markus 2:27-28","Hebreeën 4:1-11"]]]],["Menselijke tradities en valse leraren","⚠️","De gemeente",[["Wat betekent tweemaal een kind van de hel?",["Mattheüs 23:13-15"]],["Kunnen leiders de toegang tot kennis verhinderen?",["Lukas 11:52","Mattheüs 23:13"]],["Hoe herken je valse profeten en leraren?",["Mattheüs 7:15-20","2 Petrus 2:1-3","1 Johannes 4:1"]],["Wat zegt Jezus over menselijke geboden?",["Markus 7:6-13","Mattheüs 15:1-9"]],["Wat als iemand een ander evangelie brengt?",["Galaten 1:6-9","2 Korinthe 11:3-4"]],["Wat zegt Jezus over zware lasten?",["Mattheüs 23:4","Lukas 11:46"]],["Wat zegt Jezus over titels en de eerste plaats?",["Mattheüs 23:8-12","Markus 10:42-45"]],["Hoe onderzoek je of onderwijs waar is?",["Handelingen 17:11","1 Thessalonicenzen 5:21"]]]],["Moeilijke Bijbelteksten","🧭","Verdiepend Bijbelonderzoek",[["Wie wordt aangesproken in Jesaja 14?",["Jesaja 14:1-23"]],["Wat zegt Jesaja over Filistea?",["Jesaja 14:28-32"]],["Wat is de context van Psalm 3?",["Psalm 3"]],["Wat zegt Jezus over genezing van velen?",["Markus 1:29-39","Mattheüs 8:16-17"]],["Wat betekent het oog van de naald?",["Mattheüs 19:23-26"]],["Wat betekent de twee kanten van 1 Korinthe 7:36-38?",["1 Korinthe 7:36-38"]],["Wat betekent het nieuwe Jeruzalem?",["Openbaring 21:1-27","Openbaring 22:1-5"]],["Wat betekent de kameel door het oog van de naald?",["Mattheüs 19:23-26"]],["Wat betekent Jesaja 14 in zijn context?",["Jesaja 14:1-23"]],["Wat betekent Pelesjet in de profetieën?",["Jesaja 14:28-32"]],["Wat zegt Jezus over het zwaard?",["Mattheüs 10:34-39","Lukas 22:35-38"]],["Wat zegt Psalm 3 over tegenstanders?",["Psalm 3:1-9"]],["Wat betekent het genieten van arbeid?",["Prediker 3:12-13","Prediker 5:17-18"]],["Wat betekent 1 Korinthe 7 over trouwen?",["1 Korinthe 7:25-40"]]]],["Schijnbare tegenstrijdigheden","🔍","Verdiepend Bijbelonderzoek",[["Zijn gelovigen volmaakt of nog niet?",["Hebreeën 10:14","Filippenzen 3:12"]],["Genas Jezus allen of velen?",["Markus 1:32-34","Mattheüs 8:16"]],["Is de Vader groter en is het Woord God?",["Johannes 14:28","Johannes 1:1-18"]],["Gods wil en menselijke weigering?",["1 Timotheüs 2:4","Mattheüs 23:37"]]]],["De grondtekst en vertaalverschillen","📚","Verdiepend Bijbelonderzoek",[["Hoe onderzochten de Bereeërs de Schriften?",["Handelingen 17:10-12"]],["Wat zegt Jezus over de Schriften?",["Johannes 5:39","Lukas 24:25-27"]],["Wat zegt Paulus over de ingegeven Schrift?",["2 Timotheüs 3:14-17"]],["Wat staat er over profetie en uitleg?",["2 Petrus 1:19-21"]],["Wat zegt de Schrift over toevoegen of afdoen?",["Deuteronomium 4:2","Spreuken 30:5-6","Openbaring 22:18-19"]],["Wat staat er over Gods blijvende woord?",["Jesaja 40:8","Mattheüs 24:35","1 Petrus 1:24-25"]],["Wat zegt de Schrift over de wet terugvinden?",["2 Koningen 22:8-13","Nehemia 8:1-9"]]]],["Bijbel en islam","🔎","Verdiepend Bijbelonderzoek",[["Wat zeggen de evangeliën over de dood van Jezus?",["Markus 15:33-47","Johannes 19:28-37"]],["Wat zegt de Bijbel over Jezus als Zoon?",["Johannes 3:16-18","Johannes 20:30-31"]],["Wat zeggen de apostelen over de opstanding?",["Handelingen 2:22-36","1 Korinthe 15:3-8"]],["Wat zegt de Bijbel over Mozes en de wet?",["Exodus 24:3-8","Deuteronomium 31:24-26"]],["Wat zegt de Bijbel over Abraham?",["Genesis 12:1-3","Genesis 22:1-19","Galaten 3:6-9"]],["Wat staat er over het bewaren van Gods woorden?",["Jesaja 40:8","Mattheüs 24:35"]],["Wat zeggen de Evangeliën over de kruisiging?",["Markus 15:21-39","Johannes 19:16-37"]],["Wat schrijft Paulus over de opstanding?",["1 Korinthe 15:3-19"]],["Wat zegt Jezus over de Schriften?",["Lukas 24:25-27","Johannes 5:39"]]]]];
 const links=[
-["Menselijke tradities en geboden",["Markus 7:9","1 Korinthe 14:37"],"Thematisch verband: onderzoek de context van beide passages."],
-["Het nieuwe verbond",["Jeremia 31:31-34","Hebreeën 8:8-13"],"Hebreeën haalt Jeremia aan."],
-["Oudsten en opzieners",["Titus 1:5-7","Handelingen 20:17-28"],"Vergelijk de benamingen en taken."],
-["Geloof en doop",["Handelingen 2:38","Handelingen 8:36-38"],"Vergelijk de volgorde in beide gebeurtenissen."],
-["Wet en genade",["Romeinen 6:14","Galaten 3:23-25"],"Vergelijk het onderwijs van Paulus."],
-["Gods wil en menselijke reactie",["1 Timotheüs 2:4","Mattheüs 23:37"],"Een mogelijk thematisch verband; lees beide contexten."]
-];
-
-function bibleLink(ref){
-return "https://www.statenvertaling.net/zoek.php?q="+encodeURIComponent(ref);
-}
-function refs(arr){
-return '<div class="refs">'+arr.map(r=>'<a target="_blank" rel="noopener noreferrer" href="'+bibleLink(r)+'">'+r+' ↗</a>').join("")+'</div>';
-}
-function render(filter=""){
-let f=filter.toLowerCase().trim();
-let matching=data.filter(d=>(d.title+" "+d.description+" "+d.questions.flat(2).join(" ")).toLowerCase().includes(f));
-document.getElementById("cards").innerHTML=matching.map((d)=>'<div class="card" onclick="document.getElementById(\'study'+data.indexOf(d)+'\').scrollIntoView({behavior:\'smooth\'})"><h3>'+d.icon+" "+d.title+'</h3><p>'+d.description+'</p><small>Bekijk Bijbelverwijzingen →</small></div>').join("");
-document.getElementById("studies").innerHTML=matching.map(d=>{
-let qs=d.questions.filter(q=>!f||(d.title+" "+d.description+" "+q.join(" ")).toLowerCase().includes(f));
-return '<div class="study" id="study'+data.indexOf(d)+'"><h2>'+d.icon+" "+d.title+'</h2>'+qs.map(q=>'<div class="question"><strong>'+q[0]+'</strong>'+refs(q[1])+'</div>').join("")+'</div>';
-}).join("") || "<p>Geen onderwerpen gevonden.</p>";
-document.getElementById("connections").innerHTML=links.filter(l=>!f||l.flat(2).join(" ").toLowerCase().includes(f)).map(l=>'<div class="connection"><strong>'+l[0]+'</strong><br><br>'+refs(l[1])+'<details><summary>Waarom deze verbinding?</summary>'+l[2]+'</details></div>').join("");
-}
-function searchStudies(){render(document.getElementById("search").value)}
-render();
-</script>
-</body>
-</html>
+["Heilig verklaard en toch groeiend in heiliging", ["Hebreeën 10:14", "Filippenzen 3:12-15"], "Onderzoek het gebruik van volmaakt in beide contexten."],
+["Een mens tweemaal kind van de hel", ["Mattheüs 23:15", "Lukas 11:52"], "Onderzoek wie Jezus aanspreekt en waarom."],
+["Kinderen van God door geloof", ["Johannes 1:12", "Galaten 3:26-29"], "Vergelijk de beschrijvingen van kindschap en geloof."],
+["De Vader en de Zoon", ["Johannes 1:1", "Johannes 14:28", "Markus 13:32"], "Vergelijk zorgvuldig de directe context van elk vers."],
+["Beproeving en verzoeking", ["Genesis 22:1", "Jakobus 1:13"], "Onderzoek het verschil tussen beproeven en verleiden tot kwaad."],
+["Zekerheid en waarschuwing", ["Johannes 10:27-30", "Hebreeën 3:12-14"], "Lees beloften en waarschuwingen elk in hun eigen context."],
+["Het avondmaal als samenkomst", ["Handelingen 2:42", "1 Korinthe 11:17-34"], "Vergelijk de praktijk en de correctie in Korinthe."],
+["Eerste en nieuwe verbond", ["Jeremia 31:31-34", "Hebreeën 8:8-13", "Hebreeën 10:9"], "Hebreeën citeert Jeremia en bespreekt de verandering van verbond."],
+["Schrift onderzoeken", ["Handelingen 17:11", "2 Timotheüs 3:16-17"], "Vergelijk het toetsen van onderwijs aan de Schrift."],
+["Menselijke tradities en geboden",["Markus 7:9","1 Korinthe 14:37"],"Thematisch verband: onderzoek de context van beide passages."],["Het nieuwe verbond",["Jeremia 31:31-34","Hebreeën 8:8-13"],"Hebreeën haalt Jeremia aan."],["Oudsten en opzieners",["Titus 1:5-7","Handelingen 20:17-28"],"Vergelijk de benamingen en taken."],["Geloof en doop",["Handelingen 2:38","Handelingen 8:36-38"],"Vergelijk de volgorde in beide gebeurtenissen."],["Wet en genade",["Romeinen 6:14","Galaten 3:23-25"],"Vergelijk het onderwijs van Paulus."],["Gods wil en menselijke reactie",["1 Timotheüs 2:4","Mattheüs 23:37"],"Een mogelijk thematisch verband; lees beide contexten."]];
+// Bijbelteksten worden rechtstreeks in de pagina geladen via de openbare GetBible API.
+const bookNames=['Genesis','Exodus','Leviticus','Numeri','Deuteronomium','Jozua','Richteren','Ruth','1 Samuël','2 Samuël','1 Koningen','2 Koningen','1 Kronieken','2 Kronieken','Ezra','Nehemia','Esther','Job','Psalmen','Spreuken','Prediker','Hooglied','Jesaja','Jeremia','Klaagliederen','Ezechiël','Daniël','Hosea','Joël','Amos','Obadja','Jona','Micha','Nahum','Habakuk','Zefanja','Haggaï','Zacharia','Maleachi','Mattheüs','Markus','Lukas','Johannes','Handelingen','Romeinen','1 Korinthe','2 Korinthe','Galaten','Efeze','Filippenzen','Kolossenzen','1 Thessalonicenzen','2 Thessalonicenzen','1 Timotheüs','2 Timotheüs','Titus','Filemon','Hebreeën','Jakobus','1 Petrus','2 Petrus','1 Johannes','2 Johannes','3 Johannes','Judas','Openbaring'];
+const chapterCache=new Map();
+function parseRef(ref){let m=ref.match(/^(.*?)\s+(\d+)(?::(\d+)(?:-(\d+))?)?$/);if(!m)return null;let book=bookNames.indexOf(m[1])+1;if(!book)return null;return {book,chapter:+m[2],from:m[3]?+m[3]:1,to:m[4]?+m[4]:(m[3]?+m[3]:Infinity)};}
+async function loadChapter(translation,book,chapter){let key=translation+'/'+book+'/'+chapter;if(!chapterCache.has(key)){let promise=fetch('https://api.getbible.net/v2/'+key+'.json').then(async r=>{if(!r.ok)throw Error('Bron niet bereikbaar ('+r.status+').');return r.json()}).catch(e=>{chapterCache.delete(key);throw e});chapterCache.set(key,promise)}return chapterCache.get(key)}
+function extractVerses(obj){let x=obj?.verses||obj?.chapter?.verses||obj?.chapters?.[0]?.verses;if(Array.isArray(x))return x;if(x&&typeof x==='object')return Object.values(x);return []}
+async function getPassage(ref,version){let parsed=parseRef(ref);if(!parsed)throw Error('Verwijzing niet herkend.');let translation=version==='sv'?'statenvertaling':parsed.book<=39?'codex':'textusreceptus';let data=await loadChapter(translation,parsed.book,parsed.chapter);let verses=extractVerses(data).filter(v=>{let n=Number(v.verse||v.number);return n>=parsed.from&&n<=parsed.to});if(!verses.length)throw Error('Geen verzen gevonden in de gekozen bron.');return verses.map(v=>String(v.verse||v.number)+'. '+String(v.text||'').replace(/<[^>]*>/g,'')).join('\n\n')}
+const escapeHTML=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));let seq=0;
+function refs(arr){return '<div class="refs">'+arr.map(r=>{let id='v'+seq++;return '<div><button class="refbutton" aria-expanded="false" aria-controls="'+id+'" data-ref="'+escapeHTML(r)+'">'+escapeHTML(r)+' ▾</button><div class="versebox" id="'+id+'" hidden></div></div>'}).join('')+'</div>'}
+function render(f=''){f=f.toLowerCase().trim();let matching=data.map((d,i)=>({d:[d[0],d[1],d[2],Array.from(new Map(d[3].map(q=>[q[0].toLowerCase().trim(),q])).values())],i})).filter(({d})=>d.flat(3).join(' ').toLowerCase().includes(f));document.getElementById('cards').innerHTML=matching.map(({d,i})=>'<div class="card" tabindex="0" role="button" data-study="study'+i+'"><small>'+escapeHTML(d[2])+'</small><h3>'+d[1]+' '+d[0]+'</h3><p>'+d[2]+'</p><small>Bekijk Bijbelverwijzingen →</small></div>').join('');document.getElementById('studies').innerHTML=matching.map(({d,i})=>'<div class="study" id="study'+i+'"><h2>'+d[1]+' '+d[0]+'</h2>'+d[3].filter(q=>!f||(d[0]+' '+d[2]+' '+q.flat().join(' ')).toLowerCase().includes(f)).map(q=>'<div class="question"><strong>'+q[0]+'</strong>'+refs(q[1])+'</div>').join('')+'</div>').join('')||'<p>Geen onderwerpen gevonden.</p>';document.getElementById('connections').innerHTML=links.filter(l=>!f||l.flat(2).join(' ').toLowerCase().includes(f)).map(l=>'<div class="connection"><strong>'+l[0]+'</strong><br><br>'+refs(l[1])+'<details><summary>Waarom deze verbinding?</summary>'+l[2]+'</details></div>').join('')}
+// Een kleine, handmatig samengestelde woordenlijst; geen automatische vertaling of volledige lexicon.
+const wordGlossary={
+ 'μετανοήσατε':'Werkwoord van μετανοέω (metanoeō): verander van denken / kom tot inkeer; in Handelingen 2:38 als oproep in het meervoud.',
+ 'βαπτισθήτω':'Vorm van βαπτίζω (baptizō): gedoopt worden; in Handelingen 2:38 een gebiedende vorm, derde persoon enkelvoud.',
+ 'πίστις':'Pistis: geloof, vertrouwen of trouw; de precieze nuance hangt van de context af.',
+ 'χάρις':'Charis: genade, gunst of welwillendheid; betekenis afhankelijk van de context.',
+ 'ἁγιασμός':'Hagiasmos: heiliging of afzondering voor God.',
+ 'δικαιοσύνη':'Dikaiosynē: gerechtigheid, rechtvaardigheid.',
+ 'λόγος':'Logos: woord, uitspraak, boodschap; de context bepaalt de betekenis.',
+ 'θεός':'Theos: God of god; context en grammatica zijn bepalend.',
+ 'יְהוָה':'Het tetragram JHWH, de Godsnaam in de Hebreeuwse tekst; uitspraak historisch onderwerp van onderzoek.',
+ 'אֱלֹהִים':'Elohim: God/goden; de betekenis hangt af van grammatica en context.',
+ 'בְּרִית':'Berit: verbond, overeenkomst.',
+ 'חֶסֶד':'Chesed: loyale liefde, goedertierenheid of trouw; contextafhankelijk.'
+};
+function enableWordStudy(el){const raw=el.textContent;el.textContent='';const re=/([\u0370-\u03ff\u1f00-\u1fff]+|[\u0590-\u05ff]+)|([^\u0370-\u03ff\u1f00-\u1fff\u0590-\u05ff]+)/g;for(const match of raw.matchAll(re)){if(match[1]){const b=document.createElement('button');b.type='button';b.className='original-word';b.textContent=match[1];b.dataset.key=match[1].replace(/[\u0591-\u05bd\u05bf-\u05c7]/g,'');b.title='Bekijk woordverklaring';el.append(b)}else el.append(document.createTextNode(match[2]))}}
+const unavailable='Deze volledige tekst is nog niet lokaal toegevoegd. Er wordt bewust geen onvolledige of ongecontroleerde Bijbeltekst getoond.';
+function pane(ref,n){return '<div class="pane"><label>Tekst '+n+'</label><select class="version"><option value="sv"'+(n===1?' selected':'')+'>Statenvertaling</option><option value="original"'+(n===2?' selected':'')+'>Grondtekst (Hebreeuws / Grieks)</option><option value="naard">Naardense Bijbel (niet beschikbaar)</option></select><div class="verse" style="white-space:pre-wrap;line-height:1.8"></div></div>'}
+async function update(box,ref){for(let p of box.querySelectorAll('.pane')){let v=p.querySelector('select').value;let el=p.querySelector('.verse');let token=String(Date.now())+Math.random();p.dataset.request=token;if(v==='naard'){el.textContent='De Naardense Bijbel is auteursrechtelijk beschermd; deze tekst is hier niet beschikbaar.';continue}el.textContent='Bijbeltekst laden…';try{let t=await getPassage(ref,v);if(p.dataset.request===token){el.textContent=t; if(v==='original')enableWordStudy(el);el.dir=v==='original'&&parseRef(ref)?.book<=39?'rtl':'auto'}}catch(e){if(p.dataset.request===token)el.textContent='Tekst kon niet worden geladen: '+e.message+' Controleer je internetverbinding.'}}}
+document.addEventListener('click',e=>{let w=e.target.closest('.original-word');if(w){const area=w.closest('.versebox').querySelector('.wordhelp');const entry=wordGlossary[w.dataset.key];area.innerHTML='<strong>Woordonderzoek</strong><p><b>'+escapeHTML(w.textContent)+'</b> — '+(entry?escapeHTML(entry):'Voor dit woord is nog geen gecontroleerde verklaring toegevoegd. Raadpleeg een lexicon en de zinscontext.')+'</p>';return}let b=e.target.closest('.refbutton');if(b){let box=document.getElementById(b.getAttribute('aria-controls'));let open=b.getAttribute('aria-expanded')==='true';b.setAttribute('aria-expanded',String(!open));box.hidden=open;if(!open){box.innerHTML='<strong>'+escapeHTML(b.dataset.ref)+'</strong><div class="compare">'+pane(b.dataset.ref,1)+pane(b.dataset.ref,2)+'</div><div class="wordhelp" aria-live="polite"><strong>Woordonderzoek</strong><p>Klik op een woord in de grondtekst om het te bekijken. Alleen gecontroleerde voorbeeldwoorden hebben een verklaring; overige woorden worden niet automatisch vertaald.</p></div><p class="note">De teksten worden op deze pagina geladen uit GetBible (Statenvertaling; voor het Oude Testament de Westminster Leningrad Codex en voor het Nieuwe Testament de Textus Receptus). Een internetverbinding is nodig. De grondtekst is niet automatisch een woord-voor-woordvertaling. De Naardense Bijbel is niet inbegrepen.</p>';update(box,b.dataset.ref)}return}let c=e.target.closest('[data-study]');if(c)document.getElementById(c.dataset.study)?.scrollIntoView({behavior:'smooth'})});document.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target.matches('[data-study]')){e.preventDefault();e.target.click()}});document.addEventListener('change',e=>{if(e.target.matches('.version')){let box=e.target.closest('.versebox');update(box,box.previousElementSibling.dataset.ref)}});document.getElementById('search').addEventListener('input',e=>render(e.target.value));render();
+</script></body></html>
